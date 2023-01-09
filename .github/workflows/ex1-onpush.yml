@@ -1,0 +1,48 @@
+name: Ex1 On Commit
+on: push
+jobs:
+  setup-node:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull code from repo.
+        uses: actions/checkout/@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        working-directory: ./ex1
+        run: npm ci
+      - name: Run scripts
+        working-directory: ./ex1
+        run: |
+          npm run lint
+          npm run test
+          npm run build
+  lint-code:
+    needs: setup-node
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint code.
+        working-directory: ./ex1
+        run: |
+          echo "Linting code."
+          npm run lint
+  build-code:
+    needs: setup-node
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build code.
+        working-directory: ./ex1
+        run: |
+          echo "Building code."
+          npm run build
+  test-code:
+    needs: setup-node
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test code.
+        working-directory: ./ex1
+        run: |
+          echo "Testing code."
+          npm run test
