@@ -19,30 +19,3 @@ jobs:
           npm run lint
           npm run test
           npm run build
-  lint-code:
-    needs: setup-node
-    runs-on: ubuntu-latest
-    steps:
-      - name: Lint code.
-        working-directory: ./ex1
-        run: |
-          echo "Linting code."
-          npm run lint
-  build-code:
-    needs: setup-node
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build code.
-        working-directory: ./ex1
-        run: |
-          echo "Building code."
-          npm run build
-  test-code:
-    needs: setup-node
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test code.
-        working-directory: ./ex1
-        run: |
-          echo "Testing code."
-          npm run test
