@@ -37,7 +37,7 @@ jobs:
         working-directory: ./ex1
         run: npm run test
       - name: Upload test report
-        if: failure() && steps.runTests.outcome == 'failure'
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v3
         with:
           name: test-report
