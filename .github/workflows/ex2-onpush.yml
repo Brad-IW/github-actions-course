@@ -1,5 +1,7 @@
 name: Ex2 On Commit
 on: push
+env:
+  SOME_ENV_KEY: some key value pair
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -66,4 +68,9 @@ jobs:
       - name: List output content
         run: ls
       - name: Deploy
-        run: echo "Deploying..."
+        run: |
+          echo "SOME_ENV_KEY: $SOME_ENV_KEY"
+          echo "SOME_SECRET_KEY: ${{ SOME_SECRET_KEY }}"
+          echo "${{ SOME_SECRET_KEY }}" > ./test.txt
+          cat ./test.txt
+          echo "Deploying..."
