@@ -38,6 +38,7 @@ jobs:
         run: npm run test
       - name: Upload test report
         if: ${{ failure() }}
+        working-directory: ./ex1
         uses: actions/upload-artifact@v3
         with:
           name: test-report
@@ -79,3 +80,13 @@ jobs:
           echo "SOME_ENV_KEY: $SOME_ENV_KEY"
           echo "SOME_SECRET_KEY: ${{ secrets.SOME_SECRET_KEY }}"
           echo "Deploying..."
+            
+  report:
+    needs: [lint, deploy]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output info
+        run: | 
+          echo "Something went wrong"
+          echo "${{ github }}"
