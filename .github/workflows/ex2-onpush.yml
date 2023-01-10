@@ -33,8 +33,15 @@ jobs:
         working-directory: ./ex1
         run: npm ci
       - name: Test code
+        id: run-tests
         working-directory: ./ex1
         run: npm run test
+      - name: Upload test report
+        if: steps.runTests.outcome == 'failure'
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: test.json
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -71,6 +78,4 @@ jobs:
         run: |
           echo "SOME_ENV_KEY: $SOME_ENV_KEY"
           echo "SOME_SECRET_KEY: ${{ secrets.SOME_SECRET_KEY }}"
-          echo "${{ secrets.SOME_SECRET_KEY }}" > ./test.txt
-          cat ./test.txt
           echo "Deploying..."
