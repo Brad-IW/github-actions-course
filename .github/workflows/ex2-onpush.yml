@@ -70,7 +70,7 @@ jobs:
       - name: Deploy
         run: |
           echo "SOME_ENV_KEY: $SOME_ENV_KEY"
-          echo "SOME_SECRET_KEY: ${{ SOME_SECRET_KEY }}"
-          echo "${{ SOME_SECRET_KEY }}" > ./test.txt
+          echo "SOME_SECRET_KEY: ${{ secrets.SOME_SECRET_KEY }}"
+          echo "${{ secrets.SOME_SECRET_KEY }}" > ./test.txt
           cat ./test.txt
           echo "Deploying..."
