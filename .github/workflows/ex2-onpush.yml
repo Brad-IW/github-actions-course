@@ -1,4 +1,4 @@
-name: Ex1 On Commit
+name: Ex2 On Commit
 on: push
 jobs:
   lint:
@@ -32,6 +32,7 @@ jobs:
         working-directory: ./ex1
         run: npm run test
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Pull code from repo.
@@ -46,6 +47,11 @@ jobs:
       - name: Build code
         working-directory: ./ex1
         run: npm run build
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: dist/
   deploy:
     needs: build
     runs-on: ubuntu-latest
